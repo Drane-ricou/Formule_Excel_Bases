@@ -1,0 +1,501 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide des Formules Excel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .category {
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, #e0e7ef 0%, #b3c3d9 100%);
+        }
+
+        .category-header h2 {
+            font-size: 1.4em;
+            color: #2c3e50;
+            flex: 1;
+        }
+
+        .arrow {
+            font-size: 1.5em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .category.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #fafafa;
+        }
+
+        .category.active .category-content {
+            max-height: 2000px;
+        }
+
+        .formula-item {
+            padding: 25px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .formula-item:last-child {
+            border-bottom: none;
+        }
+
+        .formula-name {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #e74c3c;
+            background: #fff5f5;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .formula-description {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        .formula-description h3 {
+            color: #3498db;
+            margin-bottom: 8px;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formula-description p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .formula-examples {
+            background: #fffbf0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .formula-examples h3 {
+            color: #f39c12;
+            margin-bottom: 8px;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formula-examples p {
+            color: #555;
+            line-height: 1.8;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .formula-comments {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .formula-comments h3 {
+            color: #2ecc71;
+            margin-bottom: 8px;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formula-comments p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            color: #856404;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .category-header h2 {
+                font-size: 1.1em;
+            }
+
+            .formula-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Guide des Formules Excel</h1>
+            <p>Cliquez sur une catégorie pour découvrir les formules</p>
+        </header>
+
+        <div class="content">
+            <!-- Formules de base -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>🧮 Formules de Base</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">=SOMME(plage de cellules)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Calcule la somme de plusieurs cellules</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=SOMME(F2:F11)</strong> calcule la somme des valeurs des cellules comprises entre F2 et F11 (: entre les cellules)</p>
+                            <p><strong>=SOMME(F2;F5;F11)</strong> calcule la somme des valeurs des cellules F2, F5 et F11 (; entre les cellules)</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">=MOYENNE(plage de cellules)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Calcule la moyenne de plusieurs cellules (ne prend pas en compte les cellules textes)</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">=MAX(plage de cellules)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie la valeur maximale de plusieurs cellules</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">=MIN(plage de cellules)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie la valeur minimale de plusieurs cellules</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formules de comptage -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>🔢 Formules de Comptage de Cellules</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">=NBVAL(plage de cellules)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie le nombre de cellules "non-vides" contenues dans une plage de cellules</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p>Permet de compter des effectifs : <strong>=NBVAL(B2:B11)</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">=NB.SI(plage de cellules;critère)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie le nombre de cellules du plage répondant au critère indiqué</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=NB.SI(E2:E11;"2C")</strong> permet de compter le nombre de 2C dans la colonne Classe</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">=NB.SI.ENS(plage de cellules1;critère1;plage de cellules2;critère2;....)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie le nombre de cellules du plage répondant à plusieurs critères sur plusieurs plages</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=NB.SI.ENS(D2:D11;"F";E2:E11;"2C")</strong> permet de compter le nombre de filles en 2C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formule SI -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>⚡ Formule =SI()</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">=SI(critère logique;valeur si vrai;valeur si faux)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Renvoie une valeur en fonction d'un critère</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=SI(J2>=10;"Admis";"Refusé")</strong> permet d'écrire "Admis" si la moyenne en J2 est supérieure ou égale à 10, sinon écris "Refusé"</p>
+                            <p>Le 1er ; correspond à "alors", le 2ème ; à "sinon"</p>
+                        </div>
+                        <div class="formula-comments">
+                            <h3>Commentaires</h3>
+                            <p>Dans une formule Excel, le point-virgule ';' permet de séparer les arguments</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Possibilité d'imbriquer plusieurs conditions</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=SI(J2&lt;5;"A Besoins";SI(J2&lt;9;"Fragile";SI(J2&lt;14;"Satisfaisant";"Très satisfaisant")))</strong></p>
+                            <p class="note"><strong>Important :</strong> Bien vérifier le nombre de parenthèses ouvertes = fermées</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formules texte -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>📝 Formules Concernant le Texte</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">=CONCATENER(texte1;texte2;texte3;…)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Permet d'assembler plusieurs textes ou chaînes de caractère pour n'en former qu'un</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=CONCATENER(C2;" ";B2;" a un niveau ";L2)</strong></p>
+                            <p>Permet de rassembler le texte de la cellule C2 (le prénom), un espace, la cellule D2 (le nom), etc.</p>
+                            <p>Résultat : <em>Emma Dupont a un niveau Satisfaisant</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECHERCHEV -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>🔍 Formule =RECHERCHEV()</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">=RECHERCHEV(Valeur_Cherchée ; Plage_Données ; Index_Colonne ; [Valeur_Proche])</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Permet de chercher une valeur dans la 1ère colonne d'un tableau et de renvoyer la valeur d'une autre colonne</p>
+                            <div style="margin-top: 15px;">
+                                <p><strong>Valeur_Cherchée :</strong> valeur qui sera cherchée dans la première colonne de la plage Plage_Données</p>
+                                <p><strong>Plage_Données :</strong> Plage source de la recherche</p>
+                                <p><strong>Index_Colonne :</strong> Index numérique de la colonne qui contient la valeur qui sera renvoyée</p>
+                                <p><strong>[Valeur_Proche] :</strong> Mettre 0 ou FAUX pour rechercher des valeurs exactes, sinon 1 ou VRAI pour préciser si Excel peut utiliser la valeur inférieure la plus proche</p>
+                            </div>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>=RECHERCHEV(B2;Champs!A$2:C$18;3;0)</strong></p>
+                            <p>Permet de chercher le nom de l'élève dans le tableau de référence de la feuille "Champs" et renvoie son établissement d'origine qui se trouve en colonne n°3 de ce tableau</p>
+                            <p>La valeur 0 ou FAUX indique que nous cherchons une valeur exacte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Références de cellules -->
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h2>📍 Références de Cellules (avec ou sans $)</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="formula-item">
+                        <div class="formula-name">RÉFÉRENCES RELATIVES d'une cellule ou plage de cellules</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Le référencement des cellules est relatif à la position de la cellule dans laquelle j'ai tapé ma formule</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p>Dans la cellule G13, je tape <strong>=SOMME(G2:G11)</strong></p>
+                            <p>→ Excel comprend que je veux calculer la somme qui se trouve dans la même colonne, au dessus de G13 et entre les lignes 2 à 11.</p>
+                            <p>Si je recopie la formule vers la droite en H13, Excel adapte la formule en prenant les cellules au dessus de H13 et écrit <strong>=SOMME(H2:H11)</strong></p>
+                        </div>
+                        <div class="formula-comments">
+                            <h3>Commentaires</h3>
+                            <p>(G2:G11) et (H2:H11) sont des références relatives respectivement à G13 et à H13</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-item">
+                        <div class="formula-name">RÉFÉRENCES ABSOLUES d'une cellule ou plage de cellules (avec $)</div>
+                        <div class="formula-description">
+                            <h3>Description</h3>
+                            <p>Le référencement des cellules est figé, il ne dépend plus de la position de la cellule dans laquelle j'ai tapé ma formule, on parle de référence absolue.</p>
+                        </div>
+                        <div class="formula-examples">
+                            <h3>Exemples</h3>
+                            <p><strong>a.</strong> Dans la cellule K14, si je tape <strong>=NB.SI(K2:K11;J14)</strong> et que je recopie vers le bas dans la cellule K15, Excel va décaler d'un cran vers le bas les références cellules. J'obtiens <strong>=NB.SI(K3:K12;J15)</strong>. J'ai donc décalé ma plage de cellule d'un cran et ne prend plus en compte la valeur K2.</p>
+                            <p><strong>b.</strong> Pour éviter cela, je vais fixer les cellules K2:K11 pour les empêcher un décalage vers le bas. Ce sont bien les lignes 2 à 11 qu'il faut fixer. Excel le comprend en rajoutant le symbole $ devant les numéros de lignes. Ma formule en K14 devient : <strong>=NB.SI(K$2:K$11;J14)</strong> et en recopiant vers le bas j'obtiens en K15 : <strong>=NB.SI(K$2:K$11;J15)</strong></p>
+                            <p>La référence des cellules est maintenant ABSOLUE. Elle ne varie pas en fonction de la position d'une cellule.</p>
+                            <p><strong>c.</strong> Remarque : je ne mets pas de $ entre J et 14, puisque je veux bien que J14 devienne J15, la référence reste relative à la ligne.</p>
+                        </div>
+                        <div class="formula-comments">
+                            <h3>Commentaires</h3>
+                            <p><strong>a.</strong> Pour fixer des lignes, rajouter un $ devant les numéros des lignes. Ex : K$2</p>
+                            <p><strong>b.</strong> Pour fixer des colonnes, rajouter un $ devant les lettres des colonnes. Ex : $K2</p>
+                            <p><strong>c.</strong> Pour fixer colonnes ET lignes, rajouter un $ devant la lettre des colonnes ET le numéro des lignes. Ex : $K$2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Guide des Formules Excel - Toutes les formules essentielles à portée de clic</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleCategory(header) {
+            const category = header.parentElement;
+            const allCategories = document.querySelectorAll('.category');
+            
+            // Si la catégorie cliquée est déjà active, on la ferme
+            if (category.classList.contains('active')) {
+                category.classList.remove('active');
+            } else {
+                // Sinon, on ferme toutes les autres et on ouvre celle-ci
+                allCategories.forEach(cat => cat.classList.remove('active'));
+                category.classList.add('active');
+            }
+        }
+
+        // Ouvrir la première catégorie par défaut
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstCategory = document.querySelector('.category');
+            if (firstCategory) {
+                firstCategory.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
